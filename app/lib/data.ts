@@ -9,7 +9,7 @@ import {
 } from "./definitions";
 import { formatCurrency } from "./utils";
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+export const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
 export async function fetchRevenue() {
   try {
@@ -162,6 +162,8 @@ export async function fetchInvoiceById(id: string) {
 
 export async function fetchCustomers() {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
     const customers = await sql<CustomerField[]>`
       SELECT
         id,
